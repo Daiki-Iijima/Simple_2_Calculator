@@ -66,6 +66,7 @@ class ViewController: UIViewController {
     var firstValue = ""
     var secondValue = ""
     var flag=false
+    var caluclate = ""
     
     @objc func buttonTapped(sender : AnyObject) {
         
@@ -88,6 +89,7 @@ class ViewController: UIViewController {
                 sender.accessibilityValue == "-" ||
                 sender.accessibilityValue == "+")
             {
+                caluclate =  sender.accessibilityValue!
                 valueStr = ""
                 label.text = ""
                 flag = true
@@ -97,7 +99,24 @@ class ViewController: UIViewController {
         
         if(sender.accessibilityValue == "=")
         {
-            valueStr = String(Int(firstValue)! + Int(secondValue)!)
+            switch caluclate {
+            case "+":
+                valueStr = String(Double(firstValue)! + Double(secondValue)!)
+                break
+            case "-":
+                valueStr = String(Double(firstValue)! - Double(secondValue)!)
+                break
+            case "÷":
+                valueStr = String(Double(firstValue)! / Double(secondValue)!)
+                break
+            case "×":
+                valueStr = String(Double(firstValue)! * Double(secondValue)!)
+                break
+            default:
+                return
+            }
+            
+            flag = false
             label.text = valueStr
             return
         }
